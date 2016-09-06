@@ -1,0 +1,75 @@
+<?php
+class Application_Model_AtendenteMapper {
+	protected $dbTable;
+	/**
+	 *
+	 * @param unknown $dbTable        	
+	 * @return Application_Model_UsuarioMapper
+	 */
+	public function setDbTable($dbTable) {
+		if (is_string ( $dbTable )) {
+			// instanciamos o DbTable que foi passado como parametro
+			$dbTable = new $dbTable ();
+		}
+		
+		$this->dbTable = $dbTable;
+		return $this;
+	}
+	/**
+	 *
+	 * @return Ambigous <unknown, unknown>
+	 */
+	public function getDbTable() {
+		if (null === $this->dbTable) {
+			// passamos para o setDbTable a nossa classe que sera instaciada
+			$this->setDbTable ( 'Application_Model_DbTable_Atendente' );
+		}
+		return $this->dbTable;
+	}
+	
+	/**
+	 * TODO: documentar
+	 * @param unknown $usuCodigo
+	 * @param string $codigoOperacaoBilheteria
+	 * @return multitype:
+	 */
+	public function findByUsuarioAtendente($usuCodigo, $codigoOperacaoBilheteria = null) {
+		$select = $this->getDbTable()
+					->select()->from(
+							array(
+									"atd" => 'atendente'),
+							array(
+									'ida_codigo' => 'ida.ida_codigo',
+									'obi_codigo' => 'ida.obi_codigo',
+									'ida_nome' => 'ida.ida_nome',
+									'usu_codigo' => 'usu.usu_codigo',
+									'usu_login' => 'usu.usu_login',
+									'ida_data_associacao' => 'ida.ida_data_associacao',
+									'atd_codigo' => 'atd.atd_codigo',
+									'atd_status' => 'atd.atd_status'))
+									->setIntegrityCheck(false)
+									->joinInner(array("usu" => "acl_usuario"), "atd.usu_codigo = usu.usu_codigo",  array(''))
+									->joinInner(array("ida" => "identificacao_atendente"), "ida.atd_codigo = atd.atd_codigo",  array(''))
+									->where('atd.atd_deletado = 0')
+									->where('ida_status = 1')
+									->where('ida.ida_deletado = 0')
+									->where('usu.usu_codigo = ?', $usuCodigo)
+									->group(array(
+											'ida_codigo' => 'ida.ida_codigo',
+											'obi_codigo' => 'ida.obi_codigo',
+											'ida_nome' => 'ida.ida_nome',
+											'usu_codigo' => 'usu.usu_codigo',
+											'usu_login' => 'usu.usu_login',
+											'ida_data_associacao' => 'ida.ida_data_associacao',
+											'atd_codigo' => 'atd.atd_codigo',
+											'atd_status' => 'atd.atd_status'))
+											->order('atd_codigo');
+		
+		$atendentes = $this->getDbTable()->fetchRow($select);
+		
+		if (empty($atendentes))
+			return array();
+		
+		return $atendentes->toArray();
+	}
+}

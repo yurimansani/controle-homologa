@@ -1,0 +1,202 @@
+<?php
+
+/**
+ * Formulário para inserção e edição de Cliente.
+ */
+
+class Application_Form_CadastroClienteForm extends Zend_Form {
+
+	public function init() {
+		
+		$translate = Zend_Registry::get('Zend_Translate');
+		$locale = $translate->getLocale();
+		$nomeValidator = new Zend_Validate_Alpha(array('allowWhiteSpace' => true));
+		$textoValidator = new Zend_Validate_Regex('/^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ *\-()#%&.,ºª_]+$/i');
+                
+		// ---------------- Dados Pessoais
+		$nome = new Zend_Form_Element_Text('clc_nome', array(
+				'label' => 'Nome',
+				'required' => true,
+				'attribs' => array('required' => ''),
+				'validators' => array(array('StringLength', false, array(3, 100)),)
+			)
+		);
+		
+		$nome->addValidator($nomeValidator, true);
+		
+		$sobrenome = new Zend_Form_Element_Text('clc_sobrenome', array(
+				'label' => 'Sobrenome',
+				'required' => true,
+				'attribs' => array('required' => ''),
+				'validators' => array(array('StringLength', false, array(3, 100)),)
+			)
+		);
+		
+		$sobrenome->addValidator($nomeValidator, true);
+		
+		$nascimento = new Zend_Form_Element_Text('clc_data_aniversario', array(
+				'label' => 'Data de Nascimento',
+				'placeholder' => $translate->translate('placeholder_date'),
+				'data-mask' => 'date'
+			)
+		);
+		
+		$sexo = new Zend_Form_Element_Select('clc_sexo', array(
+				'label' => 'Sexo',
+				'required' => true,
+			)
+		);
+		
+		$sexo->addMultiOptions(array(
+				'M' => 'Masculino',
+				'F' => 'Feminino'
+			)
+		);
+		
+		$telefone = new Zend_Form_Element_Text('clc_telefone', array(
+				'label' => 'Telefone',
+				'data-type' => 'integer',
+				'attribs' => array(
+                                                    'maxlength' => '11',
+                                                    'onkeypress' => 'return event.charCode >= 48 && event.charCode <= 57'
+                                                ),
+				'validators' => array(array('StringLength', false, array(8, 11)))
+			)
+		);
+		
+		$foneTipo = new Zend_Form_Element_Select('gtt_codigo', array(
+				'label' => 'Tipo de telefone',
+				'required' => true,
+			)
+		);
+		
+		$foneTipo->addMultiOptions(array(
+				'1' => 'Residencial',
+				'2' => 'Comercial',
+				'3' => 'Celular'
+			)
+		);
+		
+		
+		// ------------------------------------------------------
+		$cep = new Zend_Form_Element_Text('clc_cep', array(
+				'label' => 'CEP',
+				'data-type' => 'integer',
+                                'data-mask' => 'cep')
+		);
+		
+		$endereco = new Zend_Form_Element_Text('clc_endereco', array(
+				'label' => 'Endereço',
+			)
+		);
+		
+		$numeroEndereco = new Zend_Form_Element_Text('clc_numero', array(
+				'label' => 'Número',
+			)
+		);
+		
+		$complemento = new Zend_Form_Element_Text('clc_complemento', array(
+				'label' => 'Complemento',
+			)
+		);
+		
+		$complemento->addValidator($textoValidator);
+		
+		$cidade = new Zend_Form_Element_Select('cid_codigo', array(
+				'label' => 'Cidade',
+			)
+		);
+		
+		$cidade->setRegisterInArrayValidator(false);
+		$cidade->addMultiOption('', ' - Selecione - ');
+		
+		$estado = new Zend_Form_Element_Select('est_codigo', array(
+				'label' => 'Estado',
+			)
+		);
+		$estado->setRegisterInArrayValidator(false);
+		$estado->addMultiOption('', ' - Selecione - ');
+		
+		$pais = new Zend_Form_Element_Select('pai_codigo', array(
+				'label' => 'Pais',
+			)
+		);
+		
+		
+		$cadastroMapper = new Application_Model_CadastroMapper ();
+		$listaItens = $cadastroMapper->buscaNomePaisTraduzido($locale);
+		
+		$pais->setLabel('País')->addMultiOption('', ' - Selecione - ')->setRequired(false);
+		
+		foreach ($listaItens as $item) {
+			$pais->addMultiOption($item['pai_codigo'], $item['pai_nome']);
+		}
+		
+		$pais->setAttrib('onChange', 'estado()');
+		$estado->setAttrib('onChange', 'cidade()');
+		
+		// DADOS
+		$email = new Zend_Form_Element_Text('clc_email', array(
+				'label' => 'E-mail',
+				'required' => true,
+				'attribs' => array('required' => '')
+			)
+		);
+		
+		$email->addValidator(new Zend_Validate_EmailAddress());
+		
+		
+		$this->addElement($nome);
+		$this->addElement($sobrenome);
+                
+                $nascimento->addValidator(new Zend_Validate_Date(
+				array(
+					'locale'=>$translate->getLocale())
+		));
+                
+		$this->addElement($nascimento);		
+		$this->addElement($sexo);
+		$this->addElement($telefone);
+		$this->addElement($foneTipo);
+
+		// ---------------------------------
+		$this->addElement($cep);
+		$this->addElement($endereco);
+		$this->addElement($numeroEndereco);
+		$this->addElement($complemento);
+		$this->addElement($cidade);
+		$this->addElement($estado);
+		$this->addElement($pais);
+		
+		// ---------------------------------
+		$this->addElement($email);
+		
+		$this->setElementDecorators(array(
+				'viewHelper',
+				'label',
+				array('htmlTag', array('tag' => 'div', 'class' => 'form-group')),
+				'errors'
+			)
+		);
+		
+		foreach($this->getElements() as $element){
+			$element->setAttrib('class', 'form-control');
+		}
+		
+
+
+		$cep->removeDecorator('ErrorGylph');
+		$numeroEndereco->removeDecorator('ErrorGylph');
+		
+		$this->setLabelElementRequired();
+	}
+	
+	public function setLabelElementRequired(){
+		foreach($this->getElements() as $element){
+			if($element->isRequired()){
+				$element->setLabel($element->getLabel(). ' *');
+			}
+		}
+	}
+}
+
