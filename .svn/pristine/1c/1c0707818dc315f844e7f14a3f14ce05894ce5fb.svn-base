@@ -1,1 +1,0 @@
-ALTER TABLE produto_preco ADD ppr_piso_taxa_conveniencia DECIMAL(15,2);
