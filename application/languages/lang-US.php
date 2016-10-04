@@ -1,8 +1,18 @@
 <?php
+
 /**
  * Array english translate
  */
 return array (
+
+   	 	'isEmpty' => 'Record found!',
+		'recordFound' => 'Fill in the fields in red!',
+		'dateFalseFormat' => 'The date format is invalid!',
+		'dateInvalidDate' => 'The date does not exist!',
+		'emailAddressInvalidFormat' => 'Mail format invalid!',
+		'emailAddressInvalidHostname' => 'Mail format invalid!',
+
+
 		'ok' => 'okay',
 		'usuario' => 'User',
 		'senha' => 'Password',

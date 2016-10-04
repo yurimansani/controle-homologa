@@ -29,6 +29,14 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
+function prpre($array, $exit = true) {
+    if(in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '189.44.30.50'))) {
+        echo '<pre>';
+        print_r($array);
+        if ($exit)
+            exit;
+    }
+}
 /** Zend_Application */
 require_once 'Zend/Application.php';
 

@@ -5,10 +5,10 @@
         public function insertStatus($array)
         {
             $zendAdapter = Zend_Db_Table::getDefaultAdapter();
-            $zendAdapter->insert('controle_homologa_status',
+            $zendAdapter->insert('status_homologa',
                     array(
                         'id_status' => 0,
-                        'status' => $array['cStatus']
+                        'NomeStatus' => $array['cStatus']
             ));
 
             return $zendAdapter->lastInsertId();
