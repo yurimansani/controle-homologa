@@ -1,1 +1,0 @@
-ALTER TABLE operacao_bilheteria ADD obi_venda_socio INT NULL;

@@ -3,8 +3,8 @@
 /**
  * Array english translate
  */
-return array (
-
+return [
+		/* Tratamento de erros */
    	 	'isEmpty' => 'Record found!',
 		'recordFound' => 'Fill in the fields in red!',
 		'dateFalseFormat' => 'The date format is invalid!',
@@ -348,6 +348,6 @@ return array (
 		'socio_bloqueado' => 'Associate disabled.',
     
                 'cliente' => 'Client'
-);
+];
 
 ?>

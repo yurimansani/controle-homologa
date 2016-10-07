@@ -1,16 +1,9 @@
 <?php
 
 define('MANUTENCAO', false);
-define('AVISO_MANUTENCAO', false);
 
 if(MANUTENCAO){
-	if($_SERVER['REMOTE_ADDR'] != '10.203.52.1'){
-		if(strstr($_SERVER['HTTP_HOST'], 'eccopass')){
-			exit('<script>window.location="http://' . $_SERVER['HTTP_HOST'] . '/manutencao_eccopass.html";</script>');
-		}else{
-			exit('<script>window.location="http://' . $_SERVER['HTTP_HOST'] . '/manutencao_futebolcard.html";</script>');
-		}
-	}
+    exit('<script>window.location="http://' . $_SERVER['HTTP_HOST'] . '/manutencao.html";</script>');
 }
 
 date_default_timezone_set('America/Sao_Paulo');
