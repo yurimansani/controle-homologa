@@ -43,49 +43,67 @@
 				<div class="container">
 					<div class="row">
 						<div class="topo col-md-12">
-							<div class="row">
-								<div class="logo col-md-3">
-									<p class="text-logo">Controle Homologa</p>
+							<div class="row bor-ccc">
+								<div class="login col-sm-6 col-md-6">
+									<p>Ola, Usuario</p>
 								</div>
-								<div class="menu col-md-9">
+								<!-- login -->
+								<div class="sair col-sm-6 col-md-6">
+									<a href="/">sair</a>
+								</div>
+								<!-- sair -->
+							</div>
+							<!-- row -->
+
+
+							<div class="row">
+								<div class="logo col-sm-3 col-md-3">
+									<a href="/" class="text-logo">Controle Homologa</a>
+								</div>
+								<!-- logo -->
+								<div class="menu col-sm-9 col-md-9">
 
 									<ul>
 
-										<li><a href="#">Homologas</a></li>
-										<li>
+										<li><a href="#">Socio Homologa</a></li>
+										<!-- <li>
 											<a href="">Status</a>
 											<ul class="sub-menu">
-												<li><a href="">Homologação</a></li>
+												<li><a href="/statusHomologa/cadastro">Homologação</a></li>
 												<li><a href="">Chamado</a></li>
 											</ul>
-										</li>
-										<li><a href="#">skins</a></li>
-										<li><a href="#">programas</a></li>
-										<li><a href="#">usuarios</a></li>
-										<li><a href="#">usuarios</a></li>
+										</li> -->
+										<li><a href="#">Futebolcard 2</a></li>
+										<li><a href="#">Bilheteria</a></li>
+										<li><a href="#">Report</a></li>
+										<li><a href="#">Acess</a></li>
 
 
 									</ul>
-
+									<!-- ul -->
 								</div>
 								<!-- menu -->
 							</div>
 							<!-- row -->
 						</div>
-						<!-- topo -->
+						<!-- topo --> 
 					</div>
-					<!-- row -->
+					<!-- row > topo -->
 				</div>
 				<!-- container-->
+
+				<div class="col-md-12">
+					<div class="row">
+						<?php echo $this->layout()->content; ?>
+					</div>
+				</div>
+				<!-- row conteudo -->
+
 			</div>
 			<!-- Row -->
-<div class="">
-			<a href="/">index</a>
-			<a href="/statusHomologa/cadastro">cadastro</a>
-		</div>
 
-<?php echo $this->layout()->content; ?>
 		</div>
 		<!-- container-fluid -->
+
 	</body>
 </html>

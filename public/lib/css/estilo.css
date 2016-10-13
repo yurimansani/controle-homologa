@@ -2,13 +2,27 @@
 body,html		{ height: 100%;}
 .alt-100		{ height: 100%;}
 
-ul, ol { padding: 0; margin: 0; }
+ul, ol 			{ padding: 0; margin: 0; }
 
-.menu			{text-align: left; }
-/*.menu ul li		{  display: inline-block; }*/
+.bor-ccc		{ border-bottom: #ccc 2px solid;}
+.login			{ padding: 10px;}
+.login	p		{ margin: 0px;}
+.sair			{ padding: 10px; text-align: right; }
 
-.menu ul li { position: relative; display: inline-block; padding: 10px; }
-.menu ul li:hover .sub-menu { display: block; }
+.logo			{ padding: 10px; }			
+.menu			{ text-align: right; }
+.menu ul li 	{ position: relative; display: inline-block; padding: 10px; }
 
-.sub-menu li { display: block; }
-.sub-menu { position: absolute; float: none; top: 100%; left: 0; display: none; }
+
+.menu ul li:hover .sub-menu,
+.menu ul li.sub-menu:hover  					{ visibility: visible; opacity: 1; display: block;}
+.sub-menu 										{ z-index: 3;  position: absolute; float: none; top: 100%; left: 0;  visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s linear;}
+/*.sub-menu li 	{ display: block; }*/
+
+
+/* Controler index */
+
+.tab-homologa table 							{ width: 80%; margin-right: 10%; margin-left: 10%; }
+.tab-homologa h3 								{ margin-top: 20px; margin-bottom: 20px; text-align: center;}
+.tab-homologa table td,.tab-homologa table th 	{ border: 1px solid #ccc; text-align: left; padding: 8px; }
+.tab-homologa table tr:nth-child(even) 			{ background-color: #dddddd; }

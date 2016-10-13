@@ -6,13 +6,13 @@
 class Application_Form_CadastroStatusForm extends Zend_Form
 {
 
-    public function init()
-    {
+	public function init()
+	{
 	$this->setFormStatus();
-    }
+	}
 
-    public function setFormStatus()
-    {
+	public function setFormStatus()
+	{
 	#######################Campos###################
 	$cStatus = new Zend_Form_Element_Text('cStatus', array(
 	    'label' => 'Status',
@@ -24,6 +24,6 @@ class Application_Form_CadastroStatusForm extends Zend_Form
 	);
 	############adicionar elemento################
 	$this->addElement($cStatus);
-    }
+	}
 
 }
